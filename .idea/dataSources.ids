@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - bank@localhost" uuid="60f22d00-42a0-4c30-ac6e-3ad8a09dab14">
+    <database-info product="MySQL" version="5.7.11-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="bank"/>
+    <table name="counts" schema="" catalog="bank" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="EUR" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="UAH" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="USD" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_b7dhmbfeonk3n5rqvunikfipp" table="users" schema="" catalog="bank" columns="count_id"/>
+    </table>
+    <table name="rates" schema="" catalog="bank" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="transactions" schema="" catalog="bank" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_2slhmxmbdae8hgo4wo2j2qqqx" columns="user_id" ref-table="users" ref-schema="" ref-catalog="bank" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_n68ounswkbnxrqhdea6d4vw0y" table="users_transactions" schema="" catalog="bank" columns="transactions_id"/>
+      <index name="FK_2slhmxmbdae8hgo4wo2j2qqqx" unique="false" columns="user_id"/>
+    </table>
+    <table name="users" schema="" catalog="bank" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="surname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="count_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_b7dhmbfeonk3n5rqvunikfipp" columns="count_id" ref-table="counts" ref-schema="" ref-catalog="bank" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_2slhmxmbdae8hgo4wo2j2qqqx" table="transactions" schema="" catalog="bank" columns="user_id"/>
+      <exported-key name="FK_mcdw6bgqdr381jfi8ums1cr0w" table="users_transactions" schema="" catalog="bank" columns="Users_id"/>
+      <index name="FK_b7dhmbfeonk3n5rqvunikfipp" unique="false" columns="count_id"/>
+    </table>
+    <table name="users_transactions" schema="" catalog="bank" type="TABLE">
+      <column name="Users_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="transactions_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK_mcdw6bgqdr381jfi8ums1cr0w" columns="Users_id" ref-table="users" ref-schema="" ref-catalog="bank" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_n68ounswkbnxrqhdea6d4vw0y" columns="transactions_id" ref-table="transactions" ref-schema="" ref-catalog="bank" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_n68ounswkbnxrqhdea6d4vw0y" unique="true" columns="transactions_id"/>
+      <index name="FK_mcdw6bgqdr381jfi8ums1cr0w" unique="false" columns="Users_id"/>
+    </table>
+  </data-source>
+</component>
