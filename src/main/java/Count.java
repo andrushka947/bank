@@ -61,16 +61,33 @@ public class Count {
         this.UAH = UAH;
     }
 
-    public void addUAH(double amount) {
+    public void addUAH(EntityManager em, double amount) {
         UAH += amount;
+        Transaction transaction = new Transaction(this.user, this.user.getName() + " added " + amount + " to UAH");
+        transaction.setUser(this.getUser());
+        em.persist(transaction);
     }
 
-    public void addEUR(double amount) {
+    public void addEUR(EntityManager em, double amount) {
         EUR += amount;
+        Transaction transaction = new Transaction(this.getUser(), this.getUser().getName() + " added " + amount + " to EUR");
+        transaction.setUser(this.getUser());
+        em.persist(transaction);
     }
 
-    public void addUSD(double amount) {
+    public void addUSD(EntityManager em, double amount) {
         USD += amount;
+        Transaction transaction = new Transaction(this.user, this.user.getName() + " added " + amount + " to USD");
+        transaction.setUser(this.getUser());
+        em.persist(transaction);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void transferCurrency(EntityManager em, String fromCurrency, double amountFrom, String toCurrency) throws InvocationTargetException, IllegalAccessException {
@@ -101,6 +118,9 @@ public class Count {
         } else if (toCurrency.equals("USD")) {
             this.USD += amountFrom * rate;
         }
+        Transaction transaction = new Transaction(this.getUser(), this.getUser().getName() + " transferred " + amountFrom + fromCurrency + " to " + toCurrency);
+        transaction.setUser(this.getUser());
+        em.persist(transaction);
     }
 
     public String toString() {
@@ -124,6 +144,7 @@ public class Count {
                 res += f.getDouble(r) * this.getEUR();
             }
         }
+
         return res;
     }
 }

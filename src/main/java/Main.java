@@ -13,11 +13,14 @@ public class Main {
             User.removeAllUsers(em);
             User user = new User("Andrey", "Aleks");
             user.setCount(new Count());
-            user.getCount().addUAH(100);
-            user.getCount().addUSD(200);
+            user.getCount().setUser(user);
+            user.getCount().addUAH(em, 100);
+            user.getCount().addUSD(em, 200);
             user.addFundsByCurrency(em, 140, "EUR");
+            user.getCount().addUSD(em, 1100);
             user.getCount().transferCurrency(em, "USD", 50, "UAH");
-
+            Rate rate = new Rate();
+            em.persist(rate);
             System.out.println("_________________________________");
 
             em.getTransaction().begin();
@@ -39,8 +42,12 @@ public class Main {
                     System.out.println(u.toString());
                     System.out.println(u.getCount().toString());
                     System.out.println(u.getCount().getAllMoneyInUAH());
+                    for (Transaction t : u.getTransactions()) {
+                        System.out.println(t.toString());
+                    }
                 }
             }
+            //Transaction.getAllTransactions(em, user);
             System.out.println("After result________________________");
         } finally {
             em.close();
@@ -58,6 +65,6 @@ public class Main {
         «Транзакции», «Счета» и «Курсы валют». Счет бывает 3-х видов:
         USD, EUR, UAH.
   +      - Написать запросы для пополнения счета в нужной валюте
-  +      - перевода средств с одного счета на другой, конвертации
-  +      - валюты по курсу в рамках счетов одного пользователя.
+  +      - перевода средств с одного счета на другой
+  +      - конвертации валюты по курсу в рамках счетов одного пользователя.
   +      - Написать запрос для получения суммарных средств на счету одного пользователя в UAH (расчет по курсу).*/

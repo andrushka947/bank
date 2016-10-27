@@ -80,22 +80,22 @@ public class User {
     public void addFundsByCurrency(EntityManager em, int amount, String currency, String name) {
         User u = (User) em.find(User.class, getIdByName(em, name));
         if (currency.equals("USD")) {
-            u.getCount().addUSD(amount);
+            u.getCount().addUSD(em, amount);
         } else if (currency.equals("UAH")) {
-            u.getCount().addUAH(amount);
+            u.getCount().addUAH(em, amount);
         } else if (currency.equals("EUR")) {
-            u.getCount().addEUR(amount);
+            u.getCount().addEUR(em, amount);
         }
         em.persist(u);
     }
 
     public void addFundsByCurrency(EntityManager em, int amount, String currency) {
         if (currency.equals("USD")) {
-            this.count.addUSD(amount);
+            this.count.addUSD(em, amount);
         } else if (currency.equals("UAH")) {
-            this.count.addUAH(amount);
+            this.count.addUAH(em, amount);
         } else if (currency.equals("EUR")) {
-            this.count.addEUR(amount);
+            this.count.addEUR(em, amount);
         }
         em.merge(this);
     }

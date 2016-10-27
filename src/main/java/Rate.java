@@ -27,13 +27,18 @@ public class Rate{
        static private final double USD_TO_UAH = getValues()[3];
        static private final double EUR_TO_USD = getValues()[4];
        static private final double EUR_TO_UAH = getValues()[5];*/
-
-       static private double UAH_TO_USD = 0.35;
-       static private double UAH_TO_EUR = 0.04;
-       static private double USD_TO_EUR = 1.1094;
-       static private double USD_TO_UAH = 25.662802;
-       static private double EUR_TO_USD = 0.93;
-       static private double EUR_TO_UAH = 27.936526;
+       @Column
+       private double UAH_TO_USD = 0.35;
+       @Column
+       private double UAH_TO_EUR = 0.04;
+       @Column
+       private double USD_TO_EUR = 1.1094;
+       @Column
+       private double USD_TO_UAH = 25.662802;
+       @Column
+       private double EUR_TO_USD = 0.93;
+       @Column
+       private double EUR_TO_UAH = 27.936526;
 
        public long getId() {
               return id;
@@ -43,41 +48,55 @@ public class Rate{
               this.id = id;
        }
 
-       public static double getUAGToUSD() {
+       public double getUAGToUSD() {
               return UAH_TO_USD;
        }
 
-       public static double getUAHToEUR() {
+       public double getUAHToEUR() {
               return UAH_TO_EUR;
        }
 
-       public static double getUSDToEUR() {
+       public double getUSDToEUR() {
               return USD_TO_EUR;
        }
 
-       public static double getUSDToUAH() {
+       public double getUSDToUAH() {
               return USD_TO_UAH;
        }
 
-       public static double getEURToUSD() {
+       public double getEURToUSD() {
               return EUR_TO_USD;
        }
 
-       public static double getEURToUAH() {
+       public double getEURToUAH() {
               return EUR_TO_UAH;
        }
 
+       public void setUahToUsd(double uahToUsd) {
+              UAH_TO_USD = uahToUsd;
+       }
 
+       public void setUahToEur(double uahToEur) {
+              UAH_TO_EUR = uahToEur;
+       }
 
+       public void setUsdToEur(double usdToEur) {
+              USD_TO_EUR = usdToEur;
+       }
 
+       public void setUsdToUah(double usdToUah) {
+              USD_TO_UAH = usdToUah;
+       }
 
+       public void setEurToUsd(double eurToUsd) {
+              EUR_TO_USD = eurToUsd;
+       }
 
+       public void setEurToUah(double eurToUah) {
+              EUR_TO_UAH = eurToUah;
+       }
 
-
-
-
-
-       /*private static double[] getValues() {     //getting values for all currency exhange rate
+/*private static double[] getValues() {     //getting values for all currency exhange rate
               String result = "";
               try {
                      result = performRequest(request);
